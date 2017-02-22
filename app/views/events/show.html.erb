@@ -1,0 +1,63 @@
+
+<a href="/events">Events Dashboard</a><h1>Event Profile</h1>
+
+
+<fieldset>
+	<legend><%= @event.name %></legend>
+	<p>
+		<label for="name">Host: <%=@event.user.first_name%> <%=@event.user.last_name %>	
+		</label>
+	</p>
+	<p>
+		<label for="date">Date: <%= @event.date%>
+		</label>
+	</p>
+	<p>
+		<label for="location">Location: <%= @event.location%>, <%= @event.state%></label>
+	</p>
+	<p>People who are joining the event: <%= @who_joined.count %></p>
+
+
+	<table border="1">
+		<tr>
+			<th>Name</th>
+			<th>Location</th>
+			<th>State</th>
+		</tr>
+
+
+<% @who_joined.each do |join| %>
+
+<tr>
+	<td> <%= join.user.first_name %> </td>
+	<td> <%= join.user.location %> </td>
+	<td> <%= join.user.state %> </td>
+</tr>
+<% end %>
+	</table>
+	
+</fieldset>
+
+<p><%= flash[:errors] %></p>
+
+<h2>Discussion about this event:</h2>
+<textarea cols="100" rows="10" overflow="auto">
+
+<% @comments.each do |a| %>
+
+ <%= a.user%> says: <%= a.comment%> 
+
+
+<% end %>
+</textarea>
+
+<% @who_joined.each do |join| %>
+<form action="/comments_user/<%= join.event_id %>" method="post">
+<% end %>
+	<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+	<label for="comment">Add Comment</label>
+	<input type="text" id="comment" name="comment">
+	<input type="submit" value="Post">
+	
+</form>
+
