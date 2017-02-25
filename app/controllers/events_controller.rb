@@ -60,4 +60,12 @@ class EventsController < ApplicationController
 	    @comment=Comment.all
     end
 
+    def destroy
+      event = Event.find(params[:id])
+      event.destroy
+      session[:user_id] = nil
+      redirect_to '/events' 
+    end
+ 
+
 end

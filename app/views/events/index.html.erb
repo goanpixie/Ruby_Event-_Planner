@@ -27,7 +27,7 @@
 		</td>
 	
 			<td>  Joining </td>
-
+			<td>
   			<% if current_user == event.user %>
     			<form action='/events/<%= event.id %>' method='post'>
       				<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
@@ -42,6 +42,7 @@
 
 </table>
 <h2>Here are some of the events in other states:</h2>
+
 <table BORDER="5">
 
 	<tr>
@@ -61,22 +62,27 @@
 		<td><%= event.location %></td>
 		<td><%= event.state %></td>
 		<td> <%= event.user.first_name %> </td>
-		<td> <a href="/events/join/<%= event.id %>"> <%= event.id %>Join </a></td>
+	
+		<td> <a href="/events/join/<%= event.id %>"> Join </a></td>
 	
 			<td>  Joining </td>
-
-
+	
+           <td>
   			<% if current_user == event.user %>
     			<form action='/events/<%= event.id %>' method='post'>
       				<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
       				<input type='hidden' name='_method' value='delete'>
       				<input type='submit' value='Delete'>
     			</form>
+    			
 			</td>
-	</tr>
-			<% end %>
-	<% end %>
+		
 <% end %>
+	</tr>
+	<% end %>
+	<% end %>
+		
+		
 </table>
 
 <%= flash[:errors] %>
